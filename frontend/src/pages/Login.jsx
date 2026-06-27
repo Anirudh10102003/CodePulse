@@ -41,11 +41,11 @@ function Login() {
 
         {/* Card */}
         <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: '16px', padding: '32px' }}>
-          {error && (
+          {/* {error && (
             <div style={{ background: 'rgba(255,69,96,0.1)', border: '1px solid rgba(255,69,96,0.25)', borderRadius: '8px', padding: '12px 16px', marginBottom: '20px', color: 'var(--accent-red)', fontSize: '13px', fontFamily: 'Space Mono, monospace' }}>
               {typeof error === 'string' ? error : 'Invalid credentials'}
             </div>
-          )}
+          )} */}
 
           <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
             <div>

@@ -7,6 +7,7 @@ const SolutionVideo = require("../models/solutionVideo")
 const createProblem = async (req,res)=>{
    
   // API request to authenticate user:
+  console.log(req.body)
     const {title,description,difficulty,tags,
         visibleTestCases,hiddenTestCases,startCode,
         referenceSolution, problemCreator
@@ -35,7 +36,7 @@ const createProblem = async (req,res)=>{
 
 
         const submitResult = await submitBatch(submissions);
-        // console.log(submitResult);
+        console.log(submitResult);
 
         const resultToken = submitResult.map((value)=> value.token);
 

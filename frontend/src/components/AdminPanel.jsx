@@ -33,6 +33,7 @@ function AdminPanel() {
   const { fields: hiddenFields, append: appendHidden, remove: removeHidden } = useFieldArray({ control, name: 'hiddenTestCases' });
 
   const onSubmit = async (data) => {
+    console.log(data)
     try {
       await axiosClient.post('/problem/create', data);
       alert('Problem created successfully!');
@@ -53,7 +54,7 @@ function AdminPanel() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
       <nav className="lc-navbar" style={{ padding: '0 32px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div className="lc-logo">{'<LC />'}</div>
+        <div className="lc-logo">{'CodePulse'}</div>
         <NavLink to="/admin" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontFamily: 'Space Mono, monospace', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
           <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
           Back
@@ -62,7 +63,7 @@ function AdminPanel() {
 
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 24px' }}>
         <div className="animate-in" style={{ marginBottom: '32px' }}>
-          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: 'var(--accent-green)', letterSpacing: '0.15em', marginBottom: '8px' }}>// CREATE PROBLEM</div>
+          <div style={{ fontFamily: 'Space Mono, monospace', fontSize: '11px', color: 'var(--accent-green)', letterSpacing: '0.15em', marginBottom: '8px' }}></div>
           <h1 className="lc-page-header" style={{ fontSize: '28px' }}>New Problem</h1>
         </div>
 
