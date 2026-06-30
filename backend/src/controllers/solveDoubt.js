@@ -246,7 +246,7 @@ Your goal is to teach problem solving, not just provide answers.
       },
     });
 
-    console.log(response.text);
+    // console.log(response.text);
 
     return res.status(200).json({
       message: response.text,
