@@ -1,19 +1,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axiosClient from './utils/axiosClient'
+import axiosClient from './utils/axiosClient';
 
+// Register User Thunk
 export const registerUser = createAsyncThunk(
   'auth/register',
   async (userData, { rejectWithValue }) => {
     try {
-    const response =  await axiosClient.post('/user/register', userData);
-    return response.data.user;
+      const response = await axiosClient.post('/user/register', userData);
+      return response.data.user;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({ message: error.response?.data?.message || error.message });
     }
   }
 );
 
-
+// Login User Thunk
 export const loginUser = createAsyncThunk(
   'auth/login',
   async (credentials, { rejectWithValue }) => {
@@ -21,11 +22,12 @@ export const loginUser = createAsyncThunk(
       const response = await axiosClient.post('/user/login', credentials);
       return response.data.user;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({ message: error.response?.data?.message || error.message });
     }
   }
 );
 
+// Check Auth Thunk (Handles the 401 cleanly)
 export const checkAuth = createAsyncThunk(
   'auth/check',
   async (_, { rejectWithValue }) => {
@@ -34,13 +36,15 @@ export const checkAuth = createAsyncThunk(
       return data.user;
     } catch (error) {
       if (error.response?.status === 401) {
-        return rejectWithValue(null); // Special case for no session
+        // Return a special flag indicating there is simply no active session
+        return rejectWithValue({ isUnauthenticated: true });
       }
-      return rejectWithValue(error);
+      return rejectWithValue({ message: error.response?.data?.message || error.message });
     }
   }
 );
 
+// Logout User Thunk
 export const logoutUser = createAsyncThunk(
   'auth/logout',
   async (_, { rejectWithValue }) => {
@@ -48,7 +52,7 @@ export const logoutUser = createAsyncThunk(
       await axiosClient.post('/user/logout');
       return null;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue({ message: error.response?.data?.message || error.message });
     }
   }
 );
@@ -61,8 +65,7 @@ const authSlice = createSlice({
     loading: false,
     error: null
   },
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // Register User Cases
@@ -81,7 +84,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
       })
-  
+
       // Login User Cases
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
@@ -94,11 +97,11 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message;
+        state.error = action.payload?.message || 'Something went wrong';
         state.isAuthenticated = false;
         state.user = null;
       })
-  
+
       // Check Auth Cases
       .addCase(checkAuth.pending, (state) => {
         state.loading = true;
@@ -111,11 +114,18 @@ const authSlice = createSlice({
       })
       .addCase(checkAuth.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload?.message || 'Something went wrong';
         state.isAuthenticated = false;
         state.user = null;
+        
+        // If it's a routine 401 (no active session), keep error as null.
+        // Otherwise, set the actual error message.
+        if (action.payload?.isUnauthenticated) {
+          state.error = null; 
+        } else {
+          state.error = action.payload?.message || 'Something went wrong';
+        }
       })
-  
+
       // Logout User Cases
       .addCase(logoutUser.pending, (state) => {
         state.loading = true;

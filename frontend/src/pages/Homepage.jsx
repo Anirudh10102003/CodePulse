@@ -123,7 +123,7 @@ function Homepage() {
           {[
             { key: 'status', options: [['all','All Problems'],['solved','Solved']] },
             { key: 'difficulty', options: [['all','All Levels'],['easy','Easy'],['medium','Medium'],['hard','Hard']] },
-            { key: 'tag', options: [['all','All Tags'],['array','Array'],['linkedList','Linked List'],['graph','Graph'],['dp','DP'],['stack','Stack']] },
+            { key: 'tag', options: [['all','All Tags'],['array','Array'],['linkedList','Linked List'],['graph','Graph'],['dp','DP']] },
           ].map(f => (
             <select key={f.key} className="lc-select" style={{ padding: '8px 12px' }}
               value={filters[f.key]} onChange={e => setFilters({...filters, [f.key]: e.target.value})}>
