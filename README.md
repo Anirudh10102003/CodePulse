@@ -8,11 +8,6 @@ CodePulse is a full-stack online coding platform that provides a secure and inte
 
 **🔗 Live:**  https://codepulse1-lqsh.onrender.com/
 
-## 📂 GitHub Repository
-
-**🔗 GitHub:** https://github.com/Anirudh10102003/CodePulse
-
----
 
 ## ✨ Features
 
