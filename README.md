@@ -109,13 +109,17 @@ MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 REDIS_URL=your_redis_connection_string
 JUDGE0_API_KEY=your_judge0_api_key
-FRONTEND_URL=http://localhost:5173
+GEMINI_API_KEY=your_gemini_api_key
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
 ```
 
 Run the backend.
 
 ```bash
-npm run dev
+node src/index.js
 ```
 
 ---
@@ -127,11 +131,6 @@ cd frontend
 npm install
 ```
 
-Create a `.env` file inside the frontend folder.
-
-```env
-VITE_BACKEND_URL=http://localhost:5000
-```
 
 Run the frontend.
 
